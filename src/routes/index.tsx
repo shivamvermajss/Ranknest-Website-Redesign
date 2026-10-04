@@ -62,7 +62,7 @@ function Home() {
   return (
     <>
       <section className="relative overflow-hidden pt-36 pb-16 md:pt-44">
-        <div className="bg-atmos absolute inset-0 animate-drift" aria-hidden />
+        <div className="atmos-glow absolute inset-0 animate-drift" aria-hidden />
         <div className="grid-lines absolute inset-0" aria-hidden />
         <Container className="relative grid items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">

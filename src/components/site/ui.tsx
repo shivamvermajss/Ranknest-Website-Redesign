@@ -42,7 +42,7 @@ export function GlassCard({ children, className }: { children: ReactNode; classN
 export function PageHero({ eyebrow, title, intro, children }: { eyebrow: string; title: string; intro?: string; children?: ReactNode }) {
   return (
     <section className="relative overflow-hidden pt-40 pb-20 md:pt-48 md:pb-28">
-      <div className="bg-atmos absolute inset-0 animate-drift" aria-hidden />
+      <div className="atmos-glow absolute inset-0 animate-drift" aria-hidden />
       <div className="grid-lines absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-7xl px-6">
         <p className="eyebrow mb-6">{eyebrow}</p>

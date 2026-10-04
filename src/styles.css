@@ -106,7 +106,7 @@
   box-shadow: var(--shadow-glass);
 }
 
-@utility bg-atmos { background-image: var(--gradient-atmos); }
+@utility atmos-glow { background-image: var(--gradient-atmos); }
 
 @utility grid-lines {
   background-image: linear-gradient(oklch(1 0 0 / 5%) 1px, transparent 1px),
