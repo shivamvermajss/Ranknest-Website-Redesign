@@ -67,7 +67,7 @@ function Home() {
         <Container className="relative grid items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <p className="eyebrow mb-6">Ranknest IT · Digital Growth Agency</p>
-            <h1 className="text-[2.75rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.4rem]">
+            <h1 className="text-[2.75rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[4.6rem]">
               <SplitText text="Digital Marketing & Web Development" />
               <span className="text-gold block">That Drives Real Results</span>
             </h1>

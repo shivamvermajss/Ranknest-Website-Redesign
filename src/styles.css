@@ -66,7 +66,7 @@
   --atmos: oklch(0.45 0.14 265);
 
   --gradient-gold: linear-gradient(120deg, var(--primary) 0%, var(--primary-glow) 50%, var(--primary) 100%);
-  --gradient-atmos: radial-gradient(60% 50% at 70% 20%, oklch(0.45 0.14 265 / 35%), transparent 70%),
+  --gradient-atmos: radial-gradient(45% 40% at 75% 25%, oklch(0.45 0.14 265 / 22%), transparent 65%),
     radial-gradient(40% 40% at 15% 70%, oklch(0.83 0.15 85 / 10%), transparent 70%);
   --shadow-glow: 0 0 60px -12px oklch(0.83 0.15 85 / 45%);
   --shadow-glass: 0 20px 60px -20px oklch(0 0 0 / 60%), inset 0 1px 0 oklch(1 0 0 / 8%);
