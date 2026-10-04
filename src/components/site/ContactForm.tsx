@@ -14,10 +14,10 @@ export function ContactForm() {
     const fd = new FormData(e.currentTarget);
     const v = Object.fromEntries(fd) as Record<string, string>;
     const errs: Errors = {};
-    if (!v.name?.trim()) errs.name = "Please enter your full name.";
-    if (!/^\S+@\S+\.\S+$/.test(v.email ?? "")) errs.email = "Please enter a valid email.";
-    if (v.phone && !/^[+\d\s()-]{7,20}$/.test(v.phone)) errs.phone = "Please enter a valid phone number.";
-    if ((v.scope ?? "").trim().length < 10) errs.scope = "Tell us a little more (10+ characters).";
+    if (!v["name"]?.trim()) errs.name = "Please enter your full name.";
+    if (!/^\S+@\S+\.\S+$/.test(v["email"] ?? "")) errs.email = "Please enter a valid email.";
+    if (v["phone"] && !/^[+\d\s()-]{7,20}$/.test(v["phone"])) errs.phone = "Please enter a valid phone number.";
+    if ((v["scope"] ?? "").trim().length < 10) errs.scope = "Tell us a little more (10+ characters).";
     setErrors(errs);
     if (Object.keys(errs).length) return;
     setState("loading");
@@ -52,7 +52,7 @@ export function ContactForm() {
   );
 }
 
-function Field({ name, label, error, textarea, ...rest }: { name: string; label: string; error?: string; textarea?: boolean; type?: string; placeholder?: string; autoComplete?: string }) {
+function Field({ name, label, error, textarea, ...rest }: { name: string; label: string; error?: string | undefined; textarea?: boolean; type?: string; placeholder?: string; autoComplete?: string }) {
   const cls = cn(
     "w-full rounded-xl border bg-background/40 px-4 py-3.5 text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary focus:bg-background/60",
     error ? "border-destructive" : "border-input",

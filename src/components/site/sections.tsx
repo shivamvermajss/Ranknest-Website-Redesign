@@ -65,7 +65,7 @@ export function Strengths() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {strengths.map((s, i) => {
-        const I = strengthIcons[i];
+        const I = strengthIcons[i] ?? Users;
         return (
           <Reveal key={s.title} delay={i * 0.08}>
             <div className="glass card-sweep group h-full rounded-2xl p-7 transition-transform duration-500 hover:-translate-y-1">

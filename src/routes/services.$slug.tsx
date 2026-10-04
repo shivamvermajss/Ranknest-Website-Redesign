@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { seo } from "@/lib/seo";
 import { services } from "@/data/site";
@@ -17,7 +18,7 @@ export const Route = createFileRoute("/services/$slug")({
 
 function ServicePage() {
   const { service } = Route.useLoaderData();
-  const Icon = serviceIcons[service.slug];
+  const Icon = serviceIcons[service.slug] ?? Search;
   const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   return (
     <>

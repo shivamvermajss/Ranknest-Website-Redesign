@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Search } from "lucide-react";
 import { seo } from "@/lib/seo";
 import { services } from "@/data/site";
 import { Reveal } from "@/components/site/motion";
@@ -18,7 +18,7 @@ function Services() {
       <section className="pb-16">
         <Container className="space-y-4">
           {services.map((s, i) => {
-            const I = serviceIcons[s.slug];
+            const I = serviceIcons[s.slug] ?? Search;
             return (
               <Reveal key={s.slug}>
                 <Link to="/services/$slug" params={{ slug: s.slug }} className="glass card-sweep group grid items-center gap-6 rounded-3xl p-8 transition-all duration-500 md:grid-cols-12 md:p-12">
