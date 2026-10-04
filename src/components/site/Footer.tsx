@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { contact, services } from "@/data/site";
 import { Logo } from "./Navbar";
 
@@ -11,10 +10,10 @@ const quick = [
   { label: "Contact", to: "/contact" },
 ];
 const socials = [
-  { icon: Facebook, label: "Facebook" },
-  { icon: Instagram, label: "Instagram" },
-  { icon: Linkedin, label: "LinkedIn" },
-  { icon: Twitter, label: "X" },
+  { short: "f", label: "Facebook" },
+  { short: "ig", label: "Instagram" },
+  { short: "in", label: "LinkedIn" },
+  { short: "X", label: "X" },
 ];
 
 export function Footer() {
@@ -27,9 +26,9 @@ export function Footer() {
             Empowering businesses with AI-powered digital marketing solutions that drive visibility, leads, and sustainable growth.
           </p>
           <div className="mt-6 flex gap-2">
-            {socials.map(({ icon: I, label }) => (
+            {socials.map(({ short, label }) => (
               <span key={label} title={label} aria-label={label} className="glass grid h-10 w-10 place-items-center rounded-full text-muted-foreground transition-colors hover:text-primary">
-                <I className="h-4 w-4" />
+                <span className="text-xs font-semibold">{short}</span>
               </span>
             ))}
           </div>

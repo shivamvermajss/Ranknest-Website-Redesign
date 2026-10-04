@@ -40,7 +40,7 @@ export function ServicesGrid() {
   const [first, ...rest] = services;
   return (
     <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
-      <Reveal className="md:col-span-1 md:row-span-2"><ServiceCard s={first} index={0} featured /></Reveal>
+      <Reveal className="md:col-span-1 md:row-span-2"><ServiceCard s={first!} index={0} featured /></Reveal>
       {rest.map((s, i) => (
         <Reveal key={s.slug} delay={0.05 * i}><ServiceCard s={s} index={i + 1} /></Reveal>
       ))}
