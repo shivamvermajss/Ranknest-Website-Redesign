@@ -4,18 +4,25 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal, SplitText } from "./motion";
 
-type BtnProps = { to: string; children: ReactNode; variant?: "gold" | "ghost"; className?: string; params?: Record<string, string> };
+type BtnProps = {
+  to: string;
+  children: ReactNode;
+  variant?: "primary" | "gold" | "ghost";
+  className?: string;
+  params?: Record<string, string>;
+};
 
-export function CTAButton({ to, children, variant = "gold", className, params }: BtnProps) {
+export function CTAButton({ to, children, variant = "primary", className, params }: BtnProps) {
+  const isPrimary = variant === "primary" || variant === "gold";
   return (
     <Link
       to={to}
       params={params as never}
       className={cn(
         "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-3.5 text-sm font-semibold transition-all duration-300",
-        variant === "gold"
-          ? "bg-primary text-primary-foreground hover:shadow-glow hover:-translate-y-0.5"
-          : "glass text-foreground hover:border-primary/40",
+        isPrimary
+          ? "bg-primary text-primary-foreground hover:bg-[#c6f46c] hover:shadow-glow hover:-translate-y-0.5"
+          : "glass text-foreground hover:border-[#52BCEE]/50 hover:shadow-glow-cyan",
         className,
       )}
     >
