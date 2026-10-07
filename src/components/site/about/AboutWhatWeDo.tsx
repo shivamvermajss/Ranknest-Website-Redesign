@@ -174,50 +174,53 @@ export function AboutWhatWeDo() {
 
           {/* RIGHT (5 cols): Abstract Digital Ecosystem Preview */}
           <div className="lg:col-span-5 hidden lg:block sticky top-28">
-            <div className="rounded-3xl bg-[#080D0E]/90 border border-white/10 p-8 backdrop-blur-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
-              <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                  Service Architecture
-                </span>
-                <span className="text-[10px] font-mono text-[#B7ED51]">
-                  Active Focus: {services[activeIdx].num}
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#B7ED51]/10 border border-[#B7ED51]/30 text-[#B7ED51]">
-                    {(() => {
-                      const ActiveIcon = services[activeIdx].icon;
-                      return <ActiveIcon className="h-6 w-6" />;
-                    })()}
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono uppercase text-[#B7ED51] tracking-wider">
-                      {services[activeIdx].tag}
+            {(() => {
+              const activeService = services[activeIdx] ?? services[0]!;
+              const ActiveIcon = activeService.icon;
+              return (
+                <div className="rounded-3xl bg-[#080D0E]/90 border border-white/10 p-8 backdrop-blur-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
+                  <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                      Service Architecture
                     </span>
-                    <h4 className="font-display text-xl font-bold text-[#F5F7F7]">
-                      {services[activeIdx].shortTitle}
-                    </h4>
+                    <span className="text-[10px] font-mono text-[#B7ED51]">
+                      Active Focus: {activeService.num}
+                    </span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#B7ED51]/10 border border-[#B7ED51]/30 text-[#B7ED51]">
+                        <ActiveIcon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <span className="text-[11px] font-mono uppercase text-[#B7ED51] tracking-wider">
+                          {activeService.tag}
+                        </span>
+                        <h4 className="font-display text-xl font-bold text-[#F5F7F7]">
+                          {activeService.shortTitle}
+                        </h4>
+                      </div>
+                    </div>
+
+                    <p className="text-sm leading-relaxed text-[#B4BEC1] pt-2">
+                      {activeService.desc}
+                    </p>
+
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs text-muted-foreground">
+                      <span>Custom Strategy Included</span>
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: activeService.slug }}
+                        className="text-[#B7ED51] font-semibold hover:underline inline-flex items-center gap-1"
+                      >
+                        View Service Page ↗
+                      </Link>
+                    </div>
                   </div>
                 </div>
-
-                <p className="text-sm leading-relaxed text-[#B4BEC1] pt-2">
-                  {services[activeIdx].desc}
-                </p>
-
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs text-muted-foreground">
-                  <span>Custom Strategy Included</span>
-                  <Link
-                    to="/services/$slug"
-                    params={{ slug: services[activeIdx].slug }}
-                    className="text-[#B7ED51] font-semibold hover:underline inline-flex items-center gap-1"
-                  >
-                    View Service Page ↗
-                  </Link>
-                </div>
-              </div>
-            </div>
+              );
+            })()}
           </div>
         </div>
       </Container>

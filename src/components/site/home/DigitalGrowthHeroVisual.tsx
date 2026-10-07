@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
-import { Search, Code2, FileText, Megaphone, TrendingUp, Sparkles, Activity } from "lucide-react";
+import { Search, Code2, FileText, Megaphone, TrendingUp, Sparkles, Activity, ShieldCheck, Zap } from "lucide-react";
 
 /**
  * RANKNEST IT - DIGITAL GROWTH HERO ENGINE (LIVING 3D VISUAL)
  *
- * Faithfully matches the user's reference visual with multi-layered modern website animations:
- * 1. Rich 3D Isometric Cybernetic Processor Platform with the glowing "RN" core
- * 2. Real-time HTML5 Canvas particle jet (ascending photons & cyber embers rushing to the apex)
- * 3. Flowing laser data stream highways with continuous high-speed neon light packets
- * 4. Pulsing core holographic shockwaves & expanding radar rings
- * 5. Living 3D holographic data equalizer HUD with oscillating frequency bars & trendline
- * 6. 5 interactive floating glassmorphic service panels (SEO, Web Dev, Content, Google Ads, Performance)
- * 7. Luminous top-right growth arrow with dynamic beacon flares
- * 8. Smooth 3D mouse parallax tilt & interactive glass cursor spotlight
+ * Seamlessly integrates into the dark hero background (#030505) with NO rectangular
+ * card box, NO borders, and NO clipping — matching the organic aesthetic of the About page:
+ * 1. Seamless feathered 3D isometric platform blending into hero background grid & glows
+ * 2. Perspective cyber floor grid connecting the platform with the section floor
+ * 3. Real-time HTML5 Canvas particle jet rushing along the trajectory to the growth arrow
+ * 4. Calibrated SVG flowing laser highways with high-speed neon data pulses
+ * 5. Pulsing holographic shockwaves & radar rings at the RN processor core
+ * 6. Luminous apex flare beacon at the top-right growth arrow tip
+ * 7. Interactive glass hotspots over the 5 panels (SEO, Web Dev, Content, Google Ads, Performance)
+ *    with glowing hover auras and live stat badges (NO duplicate ghost cards!)
+ * 8. Holographic live Data Matrix ROI HUD enhancing the 3D chart
+ * 9. Buttery-smooth 3D mouse parallax tilt & interactive cursor spotlight
  */
 
 interface Particle {
@@ -53,20 +56,20 @@ export function DigitalGrowthHeroVisual() {
   const my = useMotionValue(0);
 
   // Smooth springs for buttery-smooth mouse response
-  const sx = useSpring(mx, { stiffness: 50, damping: 22 });
-  const sy = useSpring(my, { stiffness: 50, damping: 22 });
+  const sx = useSpring(mx, { stiffness: 45, damping: 24 });
+  const sy = useSpring(my, { stiffness: 45, damping: 24 });
 
   // 3D isometric tilt transforms
-  const rotateX = useTransform(sy, [-30, 30], [5, -5]);
-  const rotateY = useTransform(sx, [-30, 30], [-6, 6]);
+  const rotateX = useTransform(sy, [-30, 30], [4, -4]);
+  const rotateY = useTransform(sx, [-30, 30], [-5, 5]);
 
   // Depth layers
   const l1x = useTransform(sx, (v) => v * 0.15);
   const l1y = useTransform(sy, (v) => v * 0.15);
-  const l2x = useTransform(sx, (v) => v * 0.4);
-  const l2y = useTransform(sy, (v) => v * 0.4);
-  const l3x = useTransform(sx, (v) => v * 0.75);
-  const l3y = useTransform(sy, (v) => v * 0.75);
+  const l2x = useTransform(sx, (v) => v * 0.35);
+  const l2y = useTransform(sy, (v) => v * 0.35);
+  const l3x = useTransform(sx, (v) => v * 0.6);
+  const l3y = useTransform(sy, (v) => v * 0.6);
 
   useEffect(() => {
     const checkDesktop = () => {
@@ -93,7 +96,7 @@ export function DigitalGrowthHeroVisual() {
     setMouseLight({
       x: relX * 100,
       y: relY * 100,
-      opacity: 0.25,
+      opacity: 0.22,
     });
   };
 
@@ -105,7 +108,8 @@ export function DigitalGrowthHeroVisual() {
   };
 
   // =========================================================================
-  // HTML5 CANVAS PARTICLE JET & CYBER EMBERS (Ascending along growth trajectory)
+  // HTML5 CANVAS PARTICLE JET (Ascending photons along the growth trajectory)
+  // Calibrated to the exact 1376x768 coordinates
   // =========================================================================
   useEffect(() => {
     if (reduce) return;
@@ -117,7 +121,6 @@ export function DigitalGrowthHeroVisual() {
     let animId: number;
     let isVisible = true;
 
-    // Responsive Canvas Resizing
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -128,23 +131,23 @@ export function DigitalGrowthHeroVisual() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Intersection Observer to stop animation when out of view
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
+      (entries) => {
+        const entry = entries[0];
+        if (entry) {
+          isVisible = entry.isIntersecting;
+        }
       },
       { threshold: 0.1 }
     );
     observer.observe(canvas);
 
-    // Bezier curve points for trajectory (normalized 0 to 1)
-    // Starting at the RN Core -> sweeps up to the Growth Arrow
-    const p0 = { x: 0.54, y: 0.63 }; // Core center
-    const p1 = { x: 0.46, y: 0.44 }; // Curve anchor 1
-    const p2 = { x: 0.62, y: 0.24 }; // Curve anchor 2
-    const p3 = { x: 0.75, y: 0.09 }; // Top-right Arrow apex
+    // Trajectory Bezier: RN Core (50%, 75.5%) -> Arrow Apex (75.4%, 8.1%)
+    const p0 = { x: 0.5, y: 0.755 };
+    const p1 = { x: 0.44, y: 0.53 };
+    const p2 = { x: 0.61, y: 0.26 };
+    const p3 = { x: 0.754, y: 0.081 };
 
-    // Cubic Bezier interpolation
     const getBezierPoint = (t: number) => {
       const mt = 1 - t;
       const mt2 = mt * mt;
@@ -157,43 +160,40 @@ export function DigitalGrowthHeroVisual() {
       return { x, y };
     };
 
-    // Photons traveling along the growth trajectory
     const photons: Particle[] = [];
-    const maxPhotons = 24;
-    const photonColors = ["#B7ED51", "#52BCEE", "#ffffff", "#c6f46c"];
+    const maxPhotons = 28;
+    const photonColors = ["#B7ED51", "#52BCEE", "#ffffff", "#d6ff79"];
 
     for (let i = 0; i < maxPhotons; i++) {
       photons.push({
         t: Math.random(),
         speed: 0.0035 + Math.random() * 0.005,
         size: 1.5 + Math.random() * 2.5,
-        color: photonColors[Math.floor(Math.random() * photonColors.length)],
-        alpha: 0.5 + Math.random() * 0.5,
+        color: photonColors[Math.floor(Math.random() * photonColors.length)] ?? "#B7ED51",
+        alpha: 0.6 + Math.random() * 0.4,
       });
     }
 
-    // Ambient floating cyber embers
     const embers: Ember[] = [];
-    const maxEmbers = 20;
+    const maxEmbers = 18;
     const emberColors = ["#B7ED51", "#52BCEE", "#ffffff"];
 
     const createEmber = (): Ember => ({
-      x: 0.25 + Math.random() * 0.6,
-      y: 0.5 + Math.random() * 0.45,
-      vx: (Math.random() - 0.4) * 0.0008,
-      vy: -(0.0006 + Math.random() * 0.0012),
+      x: 0.35 + Math.random() * 0.45,
+      y: 0.45 + Math.random() * 0.4,
+      vx: (Math.random() - 0.45) * 0.0006,
+      vy: -(0.0007 + Math.random() * 0.0012),
       size: 1 + Math.random() * 2,
-      alpha: 0.2 + Math.random() * 0.6,
+      alpha: 0.2 + Math.random() * 0.5,
       life: 0,
-      maxLife: 150 + Math.random() * 120,
-      color: emberColors[Math.floor(Math.random() * emberColors.length)],
+      maxLife: 140 + Math.random() * 100,
+      color: emberColors[Math.floor(Math.random() * emberColors.length)] ?? "#B7ED51",
     });
 
     for (let i = 0; i < maxEmbers; i++) {
       embers.push(createEmber());
     }
 
-    // Animation Loop
     const render = () => {
       if (!isVisible) {
         animId = requestAnimationFrame(render);
@@ -206,7 +206,7 @@ export function DigitalGrowthHeroVisual() {
 
       ctx.clearRect(0, 0, w, h);
 
-      // 1. Draw & Update Trajectory Photons
+      // Draw trajectory photons
       for (const p of photons) {
         p.t += p.speed;
         if (p.t > 1) {
@@ -218,12 +218,10 @@ export function DigitalGrowthHeroVisual() {
         const px = pt.x * w;
         const py = pt.y * h;
 
-        // Dynamic fade: soft fade in near core, peak glow mid-flight, bright flash at arrow
         let currentAlpha = p.alpha;
         if (p.t < 0.15) currentAlpha *= p.t / 0.15;
         if (p.t > 0.85) currentAlpha *= 1 + (p.t - 0.85) * 1.5;
 
-        // Draw glowing photon core & aura
         ctx.save();
         ctx.beginPath();
         ctx.arc(px, py, p.size, 0, Math.PI * 2);
@@ -233,7 +231,6 @@ export function DigitalGrowthHeroVisual() {
         ctx.shadowBlur = p.size * 3.5;
         ctx.fill();
 
-        // White core highlight for intense laser look
         if (p.size > 2) {
           ctx.beginPath();
           ctx.arc(px, py, p.size * 0.4, 0, Math.PI * 2);
@@ -244,14 +241,15 @@ export function DigitalGrowthHeroVisual() {
         ctx.restore();
       }
 
-      // 2. Draw & Update Cyber Embers
+      // Draw cyber embers
       for (let i = 0; i < embers.length; i++) {
         const e = embers[i];
+        if (!e) continue;
         e.x += e.vx;
         e.y += e.vy;
         e.life++;
 
-        if (e.life >= e.maxLife || e.y < 0.05) {
+        if (e.life >= e.maxLife || e.y < 0.06) {
           embers[i] = createEmber();
           continue;
         }
@@ -288,56 +286,83 @@ export function DigitalGrowthHeroVisual() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative mx-auto h-[460px] w-full max-w-[620px] sm:h-[520px] md:h-[580px] lg:h-[620px] lg:max-w-none lg:w-[114%] lg:-ml-[7%] xl:w-[118%] xl:-ml-[9%] select-none overflow-visible flex items-center justify-center [perspective:1400px]"
+      className="relative mx-auto w-full max-w-[660px] sm:max-w-[700px] lg:max-w-none lg:w-[114%] lg:-ml-[7%] xl:w-[118%] xl:-ml-[9%] select-none overflow-visible flex items-center justify-center [perspective:1400px]"
       aria-label="Ranknest Interactive 3D Digital Growth Engine"
     >
       {/* 3D Tilted Parent Container */}
       <motion.div
-        style={!reduce && isDesktop ? { rotateX, rotateY, transformStyle: "preserve-3d" } : undefined}
-        className="relative w-full h-full flex items-center justify-center transition-transform duration-300 ease-out"
+        style={!reduce && isDesktop ? { rotateX, rotateY, transformStyle: "preserve-3d" as const } : {}}
+        className="relative w-full aspect-[1376/840] flex items-center justify-center transition-transform duration-300 ease-out overflow-visible"
       >
         {/* ========================================================================= */}
-        {/* LAYER 1: AMBIENT ATMOSPHERE & BACKGROUND NEON GLOWS                       */}
+        {/* LAYER 1: AMBIENT ATMOSPHERE & BACKGROUND NEON GLOWS (Matching About Page) */}
         {/* ========================================================================= */}
         <motion.div
-          style={!reduce && isDesktop ? { x: l1x, y: l1y } : undefined}
+          style={!reduce && isDesktop ? { x: l1x, y: l1y } : {}}
           className="pointer-events-none absolute inset-0 z-0 overflow-visible"
         >
           {/* Volumetric Lime & Cyan Ambient Radiance */}
-          <div className="absolute right-[12%] top-[8%] h-80 w-80 rounded-full bg-[#B7ED51]/[0.16] blur-[120px] animate-pulse-glow" />
-          <div className="absolute left-[14%] bottom-[14%] h-72 w-72 rounded-full bg-[#52BCEE]/[0.12] blur-[110px]" />
-          <div className="absolute left-[45%] top-[45%] h-56 w-56 rounded-full bg-[#B7ED51]/[0.14] blur-[90px]" />
+          <div className="absolute right-[12%] top-[4%] h-80 w-80 rounded-full bg-[#B7ED51]/[0.18] blur-[120px] animate-pulse-glow" />
+          <div className="absolute left-[8%] bottom-[8%] h-72 w-72 rounded-full bg-[#52BCEE]/[0.14] blur-[110px]" />
+          <div className="absolute left-[40%] top-[40%] h-64 w-64 rounded-full bg-[#B7ED51]/[0.12] blur-[100px]" />
 
           {/* Interactive Mouse Cursor Spotlight */}
           <div
             className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
             style={{
               opacity: mouseLight.opacity,
-              background: `radial-gradient(450px circle at ${mouseLight.x}% ${mouseLight.y}%, rgba(183, 237, 81, 0.12), rgba(82, 188, 238, 0.06) 40%, transparent 75%)`,
+              background: `radial-gradient(480px circle at ${mouseLight.x}% ${mouseLight.y}%, rgba(183, 237, 81, 0.14), rgba(82, 188, 238, 0.08) 45%, transparent 75%)`,
             }}
           />
         </motion.div>
 
         {/* ========================================================================= */}
-        {/* LAYER 2: THE 3D CYBERNETIC GROWTH ENGINE MASTER VISUAL                    */}
+        {/* LAYER 2: RECEDING 3D PERSPECTIVE FLOOR GRID (Matching About Page Style)    */}
         {/* ========================================================================= */}
-        <div className="relative w-full h-full flex items-center justify-center overflow-visible">
-          {/* Master 3D Image Base with Edge Softening Blend */}
-          <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9)]">
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-[-4%] h-48 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_40%,transparent)] z-5"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-0 origin-bottom [transform:perspective(500px)_rotateX(68deg)]"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, rgba(82, 188, 238, 0.14) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(183, 237, 81, 0.12) 1px, transparent 1px)
+              `,
+              backgroundSize: "36px 36px",
+            }}
+          />
+          {/* Glowing Red, Lime & Cyan Data Nodes on floor intersections */}
+          <span className="absolute bottom-10 left-[28%] h-2 w-2 rounded-full bg-[#C53736] shadow-[0_0_12px_rgba(197,55,54,0.95)] animate-pulse" />
+          <span className="absolute bottom-6 right-[30%] h-1.5 w-1.5 rounded-full bg-[#52BCEE] shadow-[0_0_10px_rgba(82,188,238,0.9)] animate-ping" />
+          <span className="absolute bottom-4 left-[48%] h-1.5 w-1.5 rounded-full bg-[#B7ED51] shadow-[0_0_8px_rgba(183,237,81,0.85)]" />
+        </div>
+
+        {/* ========================================================================= */}
+        {/* LAYER 3: THE 3D CYBERNETIC GROWTH ENGINE MASTER VISUAL                    */}
+        {/* Seamlessly blended with NO box, NO border, and NO hard rectangle edges    */}
+        {/* ========================================================================= */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-visible z-10">
+          <div
+            className="relative w-full h-full select-none pointer-events-none"
+            style={{
+              WebkitMaskImage:
+                "radial-gradient(ellipse 78% 70% at 50% 50%, black 45%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.3) 78%, transparent 95%)",
+              maskImage:
+                "radial-gradient(ellipse 78% 70% at 50% 50%, black 45%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.3) 78%, transparent 95%)",
+            }}
+          >
             <img
-              src="/hero-growth-engine.jpg"
+              src="/hero-growth-engine-seamless.png"
               alt="Ranknest IT - 3D Digital Growth Engine"
-              className="w-full h-full object-cover object-center select-none pointer-events-none"
+              className="w-full h-full object-contain object-center select-none pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
               loading="eager"
             />
-
-            {/* Seamless Vignette Edge Gradient (blends cleanly into #030505) */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#030505] via-transparent to-transparent opacity-60" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#030505]/40 via-transparent to-[#030505]/30" />
           </div>
 
           {/* ========================================================================= */}
-          {/* LAYER 3: REAL-TIME CANVAS ASCENDING PHOTONS & CYBER EMBERS                */}
+          {/* LAYER 4: REAL-TIME CANVAS ASCENDING PHOTONS & CYBER EMBERS                */}
           {/* ========================================================================= */}
           <canvas
             ref={canvasRef}
@@ -345,96 +370,86 @@ export function DigitalGrowthHeroVisual() {
           />
 
           {/* ========================================================================= */}
-          {/* LAYER 4: SVG DYNAMIC LASER DATA PULSES (Flowing Neon Data Highways)       */}
+          {/* LAYER 5: SVG DYNAMIC LASER DATA HIGHWAYS (Neon Cyan & Lime Light Packets) */}
           {/* ========================================================================= */}
           <motion.div
-            style={!reduce && isDesktop ? { x: l2x, y: l2y } : undefined}
-            className="pointer-events-none absolute inset-0 z-25 h-full w-full"
+            style={!reduce && isDesktop ? { x: l2x, y: l2y } : {}}
+            className="pointer-events-none absolute inset-0 z-25 h-full w-full overflow-visible"
           >
             <svg
-              viewBox="0 0 1000 600"
+              viewBox="0 0 1376 768"
               className="h-full w-full overflow-visible"
               fill="none"
               aria-hidden="true"
             >
               <defs>
-                <filter id="svgGlowLime" x="-30%" y="-30%" width="160%" height="160%">
+                <filter id="svgGlowLimeHome" x="-30%" y="-30%" width="160%" height="160%">
                   <feGaussianBlur stdDeviation="4.5" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
-                <filter id="svgGlowCyan" x="-30%" y="-30%" width="160%" height="160%">
+                <filter id="svgGlowCyanHome" x="-30%" y="-30%" width="160%" height="160%">
                   <feGaussianBlur stdDeviation="4.5" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter id="svgGlowCore" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="8" result="blur1" />
-                  <feGaussianBlur stdDeviation="3" result="blur2" />
-                  <feMerge>
-                    <feMergeNode in="blur1" />
-                    <feMergeNode in="blur2" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
               </defs>
 
-              {/* 1. Neon Cyan Sweeping Highway Loop (Around Front of Core) */}
-              {/* Path coordinates calibrated to the 1000x600 viewBox */}
+              {/* Neon Cyan Sweeping Highway Loop */}
               <path
-                d="M 330 395 C 380 430, 460 460, 545 450 C 625 440, 680 395, 710 340"
+                d="M 450 500 C 520 550, 630 585, 750 575 C 860 560, 930 505, 970 435"
                 stroke="#52BCEE"
-                strokeWidth="10"
-                strokeOpacity="0.18"
+                strokeWidth="8"
+                strokeOpacity="0.16"
                 strokeLinecap="round"
-                filter="url(#svgGlowCyan)"
+                filter="url(#svgGlowCyanHome)"
               />
               {!reduce && (
                 <path
-                  d="M 330 395 C 380 430, 460 460, 545 450 C 625 440, 680 395, 710 340"
+                  d="M 450 500 C 520 550, 630 585, 750 575 C 860 560, 930 505, 970 435"
                   stroke="#52BCEE"
-                  strokeWidth="3.2"
-                  strokeDasharray="40 180"
+                  strokeWidth="3"
+                  strokeDasharray="45 220"
                   strokeLinecap="round"
-                  filter="url(#svgGlowCyan)"
+                  filter="url(#svgGlowCyanHome)"
                   className="animate-stream-flow-fast"
                 />
               )}
 
-              {/* 2. Neon Lime High-Speed Parallel Track */}
+              {/* Neon Lime High-Speed Parallel Track */}
               <path
-                d="M 345 385 C 390 418, 470 445, 550 438 C 625 428, 675 385, 700 330"
+                d="M 470 488 C 535 532, 640 568, 755 558 C 860 545, 925 490, 960 422"
                 stroke="#B7ED51"
-                strokeWidth="7"
-                strokeOpacity="0.22"
+                strokeWidth="6"
+                strokeOpacity="0.2"
                 strokeLinecap="round"
-                filter="url(#svgGlowLime)"
+                filter="url(#svgGlowLimeHome)"
               />
               {!reduce && (
                 <path
-                  d="M 345 385 C 390 418, 470 445, 550 438 C 625 428, 675 385, 700 330"
+                  d="M 470 488 C 535 532, 640 568, 755 558 C 860 545, 925 490, 960 422"
                   stroke="#B7ED51"
-                  strokeWidth="2.5"
-                  strokeDasharray="50 160"
+                  strokeWidth="2.4"
+                  strokeDasharray="55 190"
                   strokeLinecap="round"
-                  filter="url(#svgGlowLime)"
+                  filter="url(#svgGlowLimeHome)"
                   className="animate-stream-flow"
                 />
               )}
 
-              {/* 3. Upward Soaring Laser Streak (Core to Arrow Apex) */}
+              {/* Upward Soaring Laser Streak (Core to Arrow Apex) */}
               {!reduce && (
                 <path
-                  d="M 540 375 C 500 300, 580 180, 755 58"
+                  d="M 688 480 C 640 380, 750 230, 1037 62"
                   stroke="#ffffff"
-                  strokeWidth="2.5"
-                  strokeDasharray="45 220"
+                  strokeWidth="2.2"
+                  strokeDasharray="50 280"
                   strokeLinecap="round"
-                  filter="url(#svgGlowLime)"
+                  filter="url(#svgGlowLimeHome)"
                   className="animate-stream-flow-fast"
                 />
               )}
@@ -442,13 +457,12 @@ export function DigitalGrowthHeroVisual() {
           </motion.div>
 
           {/* ========================================================================= */}
-          {/* LAYER 5: PULSING CENTRAL "RN" PROCESSOR CORE ENERGY WAVES                 */}
+          {/* LAYER 6: PULSING CENTRAL "RN" PROCESSOR CORE ENERGY WAVES                 */}
           {/* ========================================================================= */}
           <div
-            className="pointer-events-none absolute left-[54%] top-[62%] -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center"
-            style={{ width: "160px", height: "160px" }}
+            className="pointer-events-none absolute left-[50%] top-[75.5%] -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center"
+            style={{ width: "170px", height: "170px" }}
           >
-            {/* Concentric Expanding Holographic Radar Rings */}
             {!reduce && (
               <>
                 <motion.div
@@ -463,250 +477,225 @@ export function DigitalGrowthHeroVisual() {
                 />
               </>
             )}
-
-            {/* Central Core Breathing Aura */}
             <div className="h-16 w-16 rounded-full bg-[#B7ED51]/25 blur-xl animate-pulse" />
           </div>
 
           {/* ========================================================================= */}
-          {/* LAYER 6: LIVING 3D HOLOGRAPHIC DATA EQUALIZER & LIVE ROI HUD              */}
-          {/* Positioned on the glass dashboard at bottom-right                         */}
+          {/* LAYER 7: TOP-RIGHT GROWTH ARROW APEX ENERGY FLARE BEACON                  */}
+          {/* ========================================================================= */}
+          <div
+            className="pointer-events-none absolute left-[75.4%] top-[8.1%] -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center"
+            style={{ width: "70px", height: "70px" }}
+          >
+            <div className="absolute h-12 w-12 rounded-full bg-[#B7ED51]/35 blur-lg animate-pulse" />
+            <div className="absolute h-4 w-4 rounded-full bg-[#ffffff] blur-sm animate-ping opacity-80" />
+            <Sparkles className="h-6 w-6 text-[#B7ED51] animate-spin-slow opacity-90 drop-shadow-[0_0_8px_rgba(183,237,81,0.9)]" />
+          </div>
+
+          {/* ========================================================================= */}
+          {/* LAYER 8: INTERACTIVE HOTSPOTS OVER THE 5 PANELS & DATA MATRIX             */}
+          {/* Seamless interactive triggers mapped directly onto the 3D visual's panels */}
+          {/* No duplicate ghost cards — crisp interactive micro-tooltips & glowing rings */}
           {/* ========================================================================= */}
           <motion.div
-            style={!reduce && isDesktop ? { x: l3x, y: l3y } : undefined}
-            className="absolute right-[8%] bottom-[13%] sm:right-[10%] sm:bottom-[15%] z-30"
+            style={!reduce && isDesktop ? { x: l3x, y: l3y } : {}}
+            className="pointer-events-none absolute inset-0 z-35"
           >
-            <div className="relative group cursor-pointer rounded-xl bg-[#050a0b]/85 border border-[#52BCEE]/40 px-3 py-2 backdrop-blur-xl shadow-[0_16px_35px_rgba(0,0,0,0.8),0_0_20px_rgba(82,188,238,0.25)] hover:border-[#B7ED51] hover:shadow-[0_0_30px_rgba(183,237,81,0.35)] transition-all duration-300 [transform:perspective(600px)_rotateY(-12deg)_rotateX(8deg)]">
-              {/* Top HUD Header */}
-              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-1 mb-1.5 text-[9px] font-mono tracking-wider">
-                <div className="flex items-center gap-1.5 text-[#52BCEE]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#52BCEE] animate-ping" />
-                  <span className="font-semibold">DATA MATRIX</span>
-                </div>
-                <div className="flex items-center gap-1 text-[#B7ED51] font-bold">
-                  <Activity className="h-3 w-3" />
-                  <span>+48.6% ROI</span>
-                </div>
-              </div>
+            {/* 1. SEO HOTSPOT (Top-Left of Core) */}
+            <div
+              onMouseEnter={() => setActivePanel("seo")}
+              onMouseLeave={() => setActivePanel(null)}
+              className="pointer-events-auto absolute left-[33.4%] top-[17.5%] w-[16.5%] h-[15.5%] cursor-pointer group rounded-xl"
+            >
+              {/* Interactive Hover Glow Halo */}
+              <div
+                className={`absolute inset-0 rounded-xl transition-all duration-300 pointer-events-none ${
+                  activePanel === "seo"
+                    ? "bg-[#B7ED51]/10 ring-2 ring-[#B7ED51] shadow-[0_0_25px_rgba(183,237,81,0.5)] scale-105"
+                    : "group-hover:bg-[#B7ED51]/5 group-hover:ring-1 group-hover:ring-[#B7ED51]/50"
+                }`}
+              />
+              {/* Pulsing Node Beacon */}
+              <span className="absolute top-2 right-2 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B7ED51] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B7ED51]" />
+              </span>
 
-              {/* Real-time Oscillating Equalizer Bars */}
-              <div className="flex items-end justify-between gap-1 h-8 w-36 sm:w-44 pt-1">
-                {[
-                  { h: 40, c: "bg-[#C53736]", anim: "animate-[barOscillate1_2.4s_ease-in-out_infinite]" }, // Red accent node
-                  { h: 60, c: "bg-[#B7ED51]", anim: "animate-[barOscillate2_2.8s_ease-in-out_infinite]" },
-                  { h: 50, c: "bg-[#B7ED51]", anim: "animate-[barOscillate3_2.2s_ease-in-out_infinite]" },
-                  { h: 75, c: "bg-[#52BCEE]", anim: "animate-[barOscillate1_3.1s_ease-in-out_infinite]" },
-                  { h: 55, c: "bg-[#52BCEE]", anim: "animate-[barOscillate2_2.5s_ease-in-out_infinite]" },
-                  { h: 88, c: "bg-[#B7ED51]", anim: "animate-[barOscillate3_2.9s_ease-in-out_infinite]" },
-                  { h: 70, c: "bg-[#B7ED51]", anim: "animate-[barOscillate1_2.3s_ease-in-out_infinite]" },
-                  { h: 96, c: "bg-[#B7ED51]", anim: "animate-[barOscillate2_2.7s_ease-in-out_infinite]" },
-                ].map((bar, idx) => (
-                  <div key={idx} className="flex-1 flex flex-col justify-end h-full">
-                    <div
-                      style={{ height: `${bar.h}%` }}
-                      className={`w-full rounded-t-xs ${bar.c} ${!reduce ? bar.anim : ""} shadow-[0_0_6px_currentColor]`}
-                    />
-                  </div>
-                ))}
-              </div>
+              {/* Floating Stat Tooltip on Hover */}
+              {activePanel === "seo" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 whitespace-nowrap rounded-lg bg-[#050a0b]/95 border border-[#B7ED51] px-2.5 py-1 text-[10px] font-mono font-semibold text-[#B7ED51] shadow-[0_8px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(183,237,81,0.4)] backdrop-blur-md pointer-events-none"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Search className="h-3 w-3" />
+                    <span>#1 Rank | +185% Organic Traffic</span>
+                  </span>
+                </motion.div>
+              )}
+            </div>
 
-              {/* Micro Status Label */}
-              <div className="mt-1 flex items-center justify-between text-[8px] font-mono text-muted-foreground/80 border-t border-white/5 pt-0.5">
-                <span>CONVERSION OPTIMIZED</span>
-                <span className="text-[#B7ED51] font-semibold">LIVE HUD</span>
+            {/* 2. PERFORMANCE HOTSPOT (Top-Right near Arrow) */}
+            <div
+              onMouseEnter={() => setActivePanel("perf")}
+              onMouseLeave={() => setActivePanel(null)}
+              className="pointer-events-auto absolute left-[56.5%] top-[8.5%] w-[18%] h-[15.5%] cursor-pointer group rounded-xl"
+            >
+              <div
+                className={`absolute inset-0 rounded-xl transition-all duration-300 pointer-events-none ${
+                  activePanel === "perf"
+                    ? "bg-[#B7ED51]/12 ring-2 ring-[#B7ED51] shadow-[0_0_30px_rgba(183,237,81,0.6)] scale-105"
+                    : "group-hover:bg-[#B7ED51]/5 group-hover:ring-1 group-hover:ring-[#B7ED51]/50"
+                }`}
+              />
+              <span className="absolute top-2 right-2 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B7ED51] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B7ED51]" />
+              </span>
+
+              {activePanel === "perf" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 whitespace-nowrap rounded-lg bg-[#050a0b]/95 border border-[#B7ED51] px-2.5 py-1 text-[10px] font-mono font-semibold text-[#B7ED51] shadow-[0_8px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(183,237,81,0.4)] backdrop-blur-md pointer-events-none"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <TrendingUp className="h-3 w-3" />
+                    <span>+240% Growth | Measurable ROI</span>
+                  </span>
+                </motion.div>
+              )}
+            </div>
+
+            {/* 3. WEB DEVELOPMENT HOTSPOT (Mid-Left) */}
+            <div
+              onMouseEnter={() => setActivePanel("webdev")}
+              onMouseLeave={() => setActivePanel(null)}
+              className="pointer-events-auto absolute left-[30.5%] top-[36.5%] w-[19%] h-[17%] cursor-pointer group rounded-xl"
+            >
+              <div
+                className={`absolute inset-0 rounded-xl transition-all duration-300 pointer-events-none ${
+                  activePanel === "webdev"
+                    ? "bg-[#52BCEE]/10 ring-2 ring-[#52BCEE] shadow-[0_0_25px_rgba(82,188,238,0.5)] scale-105"
+                    : "group-hover:bg-[#52BCEE]/5 group-hover:ring-1 group-hover:ring-[#52BCEE]/50"
+                }`}
+              />
+              <span className="absolute top-2 right-2 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52BCEE] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#52BCEE]" />
+              </span>
+
+              {activePanel === "webdev" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 whitespace-nowrap rounded-lg bg-[#050a0b]/95 border border-[#52BCEE] px-2.5 py-1 text-[10px] font-mono font-semibold text-[#52BCEE] shadow-[0_8px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(82,188,238,0.4)] backdrop-blur-md pointer-events-none"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Code2 className="h-3 w-3" />
+                    <span>99.9% Uptime | Scalable Architecture</span>
+                  </span>
+                </motion.div>
+              )}
+            </div>
+
+            {/* 4. CONTENT HOTSPOT (Mid-Center) */}
+            <div
+              onMouseEnter={() => setActivePanel("content")}
+              onMouseLeave={() => setActivePanel(null)}
+              className="pointer-events-auto absolute left-[49.4%] top-[35.2%] w-[15%] h-[15.5%] cursor-pointer group rounded-xl"
+            >
+              <div
+                className={`absolute inset-0 rounded-xl transition-all duration-300 pointer-events-none ${
+                  activePanel === "content"
+                    ? "bg-[#B7ED51]/10 ring-2 ring-[#B7ED51] shadow-[0_0_25px_rgba(183,237,81,0.5)] scale-105"
+                    : "group-hover:bg-[#B7ED51]/5 group-hover:ring-1 group-hover:ring-[#B7ED51]/50"
+                }`}
+              />
+              <span className="absolute top-2 right-2 flex h-2 w-2">
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B7ED51]" />
+              </span>
+
+              {activePanel === "content" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 whitespace-nowrap rounded-lg bg-[#050a0b]/95 border border-[#B7ED51] px-2.5 py-1 text-[10px] font-mono font-semibold text-[#B7ED51] shadow-[0_8px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(183,237,81,0.4)] backdrop-blur-md pointer-events-none"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <FileText className="h-3 w-3" />
+                    <span>High Retention | Authority Content</span>
+                  </span>
+                </motion.div>
+              )}
+            </div>
+
+            {/* 5. GOOGLE ADS HOTSPOT (Mid-Right) */}
+            <div
+              onMouseEnter={() => setActivePanel("ads")}
+              onMouseLeave={() => setActivePanel(null)}
+              className="pointer-events-auto absolute left-[61.8%] top-[31.3%] w-[16.5%] h-[15.5%] cursor-pointer group rounded-xl"
+            >
+              <div
+                className={`absolute inset-0 rounded-xl transition-all duration-300 pointer-events-none ${
+                  activePanel === "ads"
+                    ? "bg-[#52BCEE]/10 ring-2 ring-[#52BCEE] shadow-[0_0_25px_rgba(82,188,238,0.5)] scale-105"
+                    : "group-hover:bg-[#52BCEE]/5 group-hover:ring-1 group-hover:ring-[#52BCEE]/50"
+                }`}
+              />
+              <span className="absolute top-2 right-2 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52BCEE] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#52BCEE]" />
+              </span>
+
+              {activePanel === "ads" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                  className="absolute -top-10 left-1/2 -translate-x-1/2 z-40 whitespace-nowrap rounded-lg bg-[#050a0b]/95 border border-[#52BCEE] px-2.5 py-1 text-[10px] font-mono font-semibold text-[#52BCEE] shadow-[0_8px_20px_rgba(0,0,0,0.8),0_0_15px_rgba(82,188,238,0.4)] backdrop-blur-md pointer-events-none"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Megaphone className="h-3 w-3" />
+                    <span>3.8x Target ROAS | Stronger Brand</span>
+                  </span>
+                </motion.div>
+              )}
+            </div>
+
+            {/* 6. HOLOGRAPHIC DATA EQUALIZER & LIVE ROI HUD TAG (Over Bottom-Right Chart) */}
+            <div
+              onMouseEnter={() => setActivePanel("chart")}
+              onMouseLeave={() => setActivePanel(null)}
+              className="pointer-events-auto absolute left-[56.5%] top-[65%] w-[19%] h-[23%] cursor-pointer group rounded-xl"
+            >
+              {/* Subtle Ambient Pulse on Chart */}
+              <div
+                className={`absolute inset-0 rounded-xl transition-all duration-300 pointer-events-none ${
+                  activePanel === "chart"
+                    ? "bg-[#B7ED51]/8 ring-1 ring-[#B7ED51]/60 shadow-[0_0_25px_rgba(183,237,81,0.3)]"
+                    : "group-hover:bg-[#B7ED51]/5"
+                }`}
+              />
+
+              {/* Minimal floating live badge placed directly above the chart */}
+              <div className="absolute -top-5 right-2 flex items-center gap-1.5 rounded-full bg-[#050a0b]/90 border border-[#52BCEE]/40 px-2.5 py-0.5 text-[9px] font-mono backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.7)] group-hover:border-[#B7ED51] transition-colors">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#52BCEE] animate-ping" />
+                <span className="text-[#52BCEE] font-medium">LIVE HUD</span>
+                <span className="text-white/20">|</span>
+                <Activity className="h-2.5 w-2.5 text-[#B7ED51]" />
+                <span className="text-[#B7ED51] font-bold">+48.6% ROI</span>
               </div>
             </div>
           </motion.div>
-
-          {/* ========================================================================= */}
-          {/* LAYER 7: THE 5 INTERACTIVE FLOATING GLASS SERVICE PANELS                  */}
-          {/* Overlayed with precision over the visual's 5 nodes                        */}
-          {/* ========================================================================= */}
-          <motion.div
-            style={!reduce && isDesktop ? { x: l3x, y: l3y } : undefined}
-            className="pointer-events-none absolute inset-0 z-35"
-          >
-            {/* 1. SEO PANEL (Top-Left of Core) */}
-            <motion.div
-              animate={reduce ? undefined : { y: [0, -6, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              onMouseEnter={() => setActivePanel("seo")}
-              onMouseLeave={() => setActivePanel(null)}
-              className="pointer-events-auto absolute top-[16%] left-[38%] sm:left-[40%] md:left-[41%] z-30"
-            >
-              <div
-                className={`group cursor-pointer flex items-center gap-2.5 rounded-xl bg-[#050a0b]/80 border px-3 py-2 backdrop-blur-xl transition-all duration-300 ${
-                  activePanel === "seo"
-                    ? "border-[#B7ED51] shadow-[0_0_25px_rgba(183,237,81,0.5)] scale-105"
-                    : "border-[#B7ED51]/35 shadow-[0_12px_28px_rgba(0,0,0,0.6)] hover:border-[#B7ED51] hover:shadow-[0_0_20px_rgba(183,237,81,0.35)]"
-                }`}
-              >
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#B7ED51]/15 text-[#B7ED51] border border-[#B7ED51]/40">
-                  <Search className="h-4 w-4 stroke-[2.2]" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-display text-xs font-bold text-[#F5F7F7]">SEO</span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#B7ED51] animate-pulse" />
-                  </div>
-                  <p className="text-[10px] text-muted-foreground font-medium">Higher Rankings</p>
-                </div>
-                {/* Micro Hover Badge */}
-                {activePanel === "seo" && (
-                  <span className="ml-1 text-[9px] font-mono text-[#B7ED51] bg-[#B7ED51]/10 px-1.5 py-0.5 rounded border border-[#B7ED51]/30">
-                    #1 Rank
-                  </span>
-                )}
-              </div>
-            </motion.div>
-
-            {/* 2. WEB DEVELOPMENT PANEL (Mid-Left) */}
-            <motion.div
-              animate={reduce ? undefined : { y: [0, 6, 0] }}
-              transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              onMouseEnter={() => setActivePanel("webdev")}
-              onMouseLeave={() => setActivePanel(null)}
-              className="pointer-events-auto absolute top-[35%] left-[28%] sm:left-[32%] md:left-[33%] z-30"
-            >
-              <div
-                className={`group cursor-pointer flex items-center gap-2.5 rounded-xl bg-[#050a0b]/80 border px-3 py-2 backdrop-blur-xl transition-all duration-300 ${
-                  activePanel === "webdev"
-                    ? "border-[#52BCEE] shadow-[0_0_25px_rgba(82,188,238,0.5)] scale-105"
-                    : "border-[#52BCEE]/35 shadow-[0_12px_28px_rgba(0,0,0,0.6)] hover:border-[#52BCEE] hover:shadow-[0_0_20px_rgba(82,188,238,0.35)]"
-                }`}
-              >
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#52BCEE]/15 text-[#52BCEE] border border-[#52BCEE]/40">
-                  <Code2 className="h-4 w-4 stroke-[2.2]" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-display text-xs font-bold text-[#52BCEE]">WEB DEVELOPMENT</span>
-                  </div>
-                  <p className="text-[10px] text-muted-foreground font-medium">Scalable Solutions</p>
-                </div>
-                {activePanel === "webdev" && (
-                  <span className="ml-1 text-[9px] font-mono text-[#52BCEE] bg-[#52BCEE]/10 px-1.5 py-0.5 rounded border border-[#52BCEE]/30">
-                    99.9% Uptime
-                  </span>
-                )}
-              </div>
-            </motion.div>
-
-            {/* 3. CONTENT PANEL (Center Mid) */}
-            <motion.div
-              animate={reduce ? undefined : { y: [0, -5, 0] }}
-              transition={{ duration: 7.8, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
-              onMouseEnter={() => setActivePanel("content")}
-              onMouseLeave={() => setActivePanel(null)}
-              className="pointer-events-auto absolute top-[30%] left-[49%] sm:left-[51%] md:left-[52%] z-30 hidden sm:block"
-            >
-              <div
-                className={`group cursor-pointer flex items-center gap-2 rounded-xl bg-[#050a0b]/80 border px-3 py-2 backdrop-blur-xl transition-all duration-300 ${
-                  activePanel === "content"
-                    ? "border-[#B7ED51] shadow-[0_0_25px_rgba(183,237,81,0.5)] scale-105"
-                    : "border-[#B7ED51]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] hover:border-[#B7ED51]"
-                }`}
-              >
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#B7ED51]/15 text-[#B7ED51] border border-[#B7ED51]/40">
-                  <FileText className="h-3.5 w-3.5 stroke-[2.2]" />
-                </div>
-                <div>
-                  <span className="font-display text-xs font-bold text-[#F5F7F7]">CONTENT</span>
-                  <p className="text-[9px] text-muted-foreground font-medium">Engaging Content</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* 4. GOOGLE ADS PANEL (Mid-Right) */}
-            <motion.div
-              animate={reduce ? undefined : { y: [0, 7, 0] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
-              onMouseEnter={() => setActivePanel("ads")}
-              onMouseLeave={() => setActivePanel(null)}
-              className="pointer-events-auto absolute top-[28%] right-[14%] sm:right-[18%] md:right-[20%] z-30 hidden sm:block"
-            >
-              <div
-                className={`group cursor-pointer flex items-center gap-2.5 rounded-xl bg-[#050a0b]/80 border px-3 py-2 backdrop-blur-xl transition-all duration-300 ${
-                  activePanel === "ads"
-                    ? "border-[#52BCEE] shadow-[0_0_25px_rgba(82,188,238,0.5)] scale-105"
-                    : "border-[#52BCEE]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] hover:border-[#52BCEE]"
-                }`}
-              >
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#52BCEE]/15 text-[#52BCEE] border border-[#52BCEE]/40">
-                  <Megaphone className="h-4 w-4 stroke-[2.2]" />
-                </div>
-                <div>
-                  <span className="font-display text-xs font-bold text-[#52BCEE]">GOOGLE ADS</span>
-                  <p className="text-[10px] text-muted-foreground font-medium">Stronger Brand</p>
-                </div>
-                {activePanel === "ads" && (
-                  <span className="ml-1 text-[9px] font-mono text-[#52BCEE] bg-[#52BCEE]/10 px-1.5 py-0.5 rounded border border-[#52BCEE]/30">
-                    3.8x ROAS
-                  </span>
-                )}
-              </div>
-            </motion.div>
-
-            {/* 5. PERFORMANCE PANEL (Top-Right near Arrow Apex) */}
-            <motion.div
-              animate={reduce ? undefined : { y: [0, -7, 0] }}
-              transition={{ duration: 6.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-              onMouseEnter={() => setActivePanel("perf")}
-              onMouseLeave={() => setActivePanel(null)}
-              className="pointer-events-auto absolute top-[12%] right-[18%] sm:right-[22%] md:right-[24%] z-30"
-            >
-              <div
-                className={`group cursor-pointer flex items-center gap-2.5 rounded-xl bg-[#050a0b]/85 border px-3.5 py-2.5 backdrop-blur-xl transition-all duration-300 ${
-                  activePanel === "perf"
-                    ? "border-[#B7ED51] shadow-[0_0_30px_rgba(183,237,81,0.65)] scale-105"
-                    : "border-[#B7ED51]/45 shadow-[0_14px_30px_rgba(183,237,81,0.2)] hover:border-[#B7ED51] hover:shadow-[0_0_25px_rgba(183,237,81,0.45)]"
-                }`}
-              >
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#B7ED51] text-[#030505] shadow-[0_0_15px_rgba(183,237,81,0.6)]">
-                  <TrendingUp className="h-4 w-4 stroke-[2.5]" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-display text-xs font-bold text-[#B7ED51]">PERFORMANCE</span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#B7ED51] animate-ping" />
-                  </div>
-                  <p className="text-[10px] text-muted-foreground font-medium">Real Growth</p>
-                </div>
-                {activePanel === "perf" && (
-                  <span className="ml-1 text-[9px] font-mono font-bold text-[#030505] bg-[#B7ED51] px-1.5 py-0.5 rounded shadow">
-                    +240%
-                  </span>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* ========================================================================= */}
-          {/* LAYER 8: TOP-RIGHT GROWTH ARROW APEX ENERGY FLARE                         */}
-          {/* ========================================================================= */}
-          <div
-            className="pointer-events-none absolute right-[22%] top-[6%] z-30 flex items-center justify-center"
-            style={{ width: "60px", height: "60px" }}
-          >
-            {/* Luminous beacon flare pulsing at the arrow tip */}
-            <div className="absolute h-10 w-10 rounded-full bg-[#B7ED51]/30 blur-lg animate-pulse" />
-            <div className="absolute h-4 w-4 rounded-full bg-[#ffffff] blur-sm animate-ping opacity-75" />
-            <Sparkles className="h-5 w-5 text-[#B7ED51] animate-spin-slow opacity-80" />
-          </div>
-
-          {/* ========================================================================= */}
-          {/* LAYER 9: FLOOR CYBER NODES (Blinking Red, Cyan, Lime Data Nodes)          */}
-          {/* ========================================================================= */}
-          <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
-            {/* Red Accent Status Node (Foreground Left) */}
-            <span className="absolute bottom-[24%] left-[29%] h-2 w-2 rounded-full bg-[#C53736] shadow-[0_0_12px_rgba(197,55,54,0.95)] animate-pulse" />
-            {/* Cyan Node (Bottom Right) */}
-            <span className="absolute bottom-[18%] right-[32%] h-1.5 w-1.5 rounded-full bg-[#52BCEE] shadow-[0_0_10px_rgba(82,188,238,0.9)] animate-ping" />
-            {/* Lime Node (Far Bottom Center) */}
-            <span className="absolute bottom-[8%] left-[48%] h-1.5 w-1.5 rounded-full bg-[#B7ED51] shadow-[0_0_8px_rgba(183,237,81,0.85)] animate-pulse" />
-          </div>
         </div>
       </motion.div>
     </div>
   );
 }
+

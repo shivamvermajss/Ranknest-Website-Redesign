@@ -103,6 +103,7 @@ export function AboutHeroDigitalNetwork() {
 
       for (let i = 0; i < points.length; i++) {
         const p = points[i];
+        if (!p) continue;
 
         // 1. Rotation around polar Y axis
         const x1 = p.x * cosA - p.z * sinA;
@@ -125,7 +126,7 @@ export function AboutHeroDigitalNetwork() {
           z: z2,
           color: p.color,
           size: p.size,
-          isKeyNode: p.isKeyNode,
+          isKeyNode: p.isKeyNode ?? false,
         });
       }
 
@@ -147,11 +148,11 @@ export function AboutHeroDigitalNetwork() {
       ctx.lineWidth = 0.6;
       for (let i = 0; i < projected.length; i += 3) {
         const p1 = projected[i];
-        if (p1.z < 20) continue; // Only front hemisphere
+        if (!p1 || p1.z < 20) continue; // Only front hemisphere
 
         for (let j = i + 1; j < projected.length; j += 4) {
           const p2 = projected[j];
-          if (p2.z < 20) continue;
+          if (!p2 || p2.z < 20) continue;
 
           const dx = p1.sx - p2.sx;
           const dy = p1.sy - p2.sy;
@@ -174,6 +175,7 @@ export function AboutHeroDigitalNetwork() {
 
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
+        if (!p) continue;
         const isFront = p.z > 0;
         const normZ = (p.z + radius) / (radius * 2); // 0 to 1
 
@@ -471,7 +473,7 @@ export function AboutHeroDigitalNetwork() {
       <div className="absolute inset-0 z-30 pointer-events-auto">
         {/* 01. TOP-LEFT: SEARCH (Cyan) */}
         <motion.div
-          animate={reduce ? undefined : { y: [0, -5, 0], x: [0, -2, 0] }}
+          animate={reduce ? {} : { y: [0, -5, 0], x: [0, -2, 0] }}
           transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[8%] left-[2%] sm:left-[4%] z-30 flex items-center gap-3 rounded-2xl bg-[#050a0b]/80 border border-white/10 p-2.5 sm:p-3 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] hover:border-[#52BCEE]/50 transition-colors"
         >
@@ -491,7 +493,7 @@ export function AboutHeroDigitalNetwork() {
 
         {/* 02. MID-LEFT: STRATEGY (Lime) */}
         <motion.div
-          animate={reduce ? undefined : { y: [0, -4, 0], x: [0, 3, 0] }}
+          animate={reduce ? {} : { y: [0, -4, 0], x: [0, 3, 0] }}
           transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
           className="absolute top-[42%] left-[0%] sm:left-[2%] z-30 flex items-center gap-3 rounded-2xl bg-[#050a0b]/80 border border-[#B7ED51]/30 p-2.5 sm:p-3 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] hover:border-[#B7ED51]/60 transition-colors"
         >
@@ -511,7 +513,7 @@ export function AboutHeroDigitalNetwork() {
 
         {/* 03. BOTTOM-LEFT: DEVELOPMENT / WEB (Cyan) */}
         <motion.div
-          animate={reduce ? undefined : { y: [0, -5, 0], x: [0, -3, 0] }}
+          animate={reduce ? {} : { y: [0, -5, 0], x: [0, -3, 0] }}
           transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
           className="absolute bottom-[10%] left-[2%] sm:left-[5%] z-30 flex items-center gap-3 rounded-2xl bg-[#050a0b]/80 border border-white/10 p-2.5 sm:p-3 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] hover:border-[#52BCEE]/50 transition-colors"
         >
@@ -530,7 +532,7 @@ export function AboutHeroDigitalNetwork() {
 
         {/* 04. TOP-RIGHT: AUDIENCE (Lime) */}
         <motion.div
-          animate={reduce ? undefined : { y: [0, -4, 0], x: [0, 2, 0] }}
+          animate={reduce ? {} : { y: [0, -4, 0], x: [0, 2, 0] }}
           transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           className="absolute top-[8%] right-[2%] sm:right-[4%] z-30 flex items-center gap-3 rounded-2xl bg-[#050a0b]/80 border border-[#B7ED51]/25 p-2.5 sm:p-3 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] hover:border-[#B7ED51]/50 transition-colors"
         >
@@ -550,7 +552,7 @@ export function AboutHeroDigitalNetwork() {
 
         {/* 05. MID-RIGHT: MARKETING (Cyan + Coral Red Status Node) */}
         <motion.div
-          animate={reduce ? undefined : { y: [0, -5, 0], x: [0, -2, 0] }}
+          animate={reduce ? {} : { y: [0, -5, 0], x: [0, -2, 0] }}
           transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1.1 }}
           className="absolute top-[44%] right-[0%] sm:right-[2%] z-30 flex items-center gap-3 rounded-2xl bg-[#050a0b]/80 border border-[#52BCEE]/30 p-2.5 sm:p-3 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] hover:border-[#52BCEE]/60 transition-colors"
         >
@@ -571,7 +573,7 @@ export function AboutHeroDigitalNetwork() {
 
         {/* 06. BOTTOM-RIGHT: GROWTH (Lime — Destination Nexus) */}
         <motion.div
-          animate={reduce ? undefined : { y: [0, -4, 0], x: [0, 3, 0] }}
+          animate={reduce ? {} : { y: [0, -4, 0], x: [0, 3, 0] }}
           transition={{ duration: 6.0, repeat: Infinity, ease: "easeInOut", delay: 1.6 }}
           className="absolute bottom-[10%] right-[2%] sm:right-[5%] z-30 flex items-center gap-3 rounded-2xl bg-[#050a0b]/85 border border-[#B7ED51]/40 p-2.5 sm:p-3 backdrop-blur-xl shadow-[0_14px_35px_rgba(183,237,81,0.15),inset_0_1px_0_rgba(255,255,255,0.15)] hover:border-[#B7ED51] transition-colors"
         >

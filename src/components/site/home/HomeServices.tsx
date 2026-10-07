@@ -86,7 +86,9 @@ const homeServicesList = [
 ];
 
 export function HomeServices() {
-  const [featuredService, secondaryService, ...supportingServices] = homeServicesList;
+  const featuredService = homeServicesList[0]!;
+  const secondaryService = homeServicesList[1]!;
+  const supportingServices = homeServicesList.slice(2);
 
   return (
     <section className="relative overflow-hidden py-24 md:py-36 bg-[#080D0E] border-t border-white/5">
